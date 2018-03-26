@@ -14,8 +14,7 @@ import java.net.URL;
 
 /**
  *
- * @see
- * https://github.com/danielmiessler/SecLists/master/Passwords/openwall.net-all.txt
+ * @see https://github.com/danielmiessler/SecLists/tree/master/Passwords
  */
 public class Passwords {
 

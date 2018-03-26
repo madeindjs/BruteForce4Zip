@@ -6,7 +6,7 @@ import net.lingala.zip4j.exception.ZipException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BruteForcerUnitTest {
+public class BruteForcerTest {
 
     public static final String ZIP_FILE = "src/test/resources/toto.txt.zip";
 
