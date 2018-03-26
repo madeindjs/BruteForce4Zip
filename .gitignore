@@ -1,1 +1,3 @@
-/target/
+/target/src/test/assets/toto.txt
+src/test/assets/toto.txt
+target/

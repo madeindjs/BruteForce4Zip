@@ -13,26 +13,32 @@ public class Main {
             System.exit(0);
         }
         String source = args[0];
+        String password = "test";
 
+        tryPassword(source, password);
+
+    }
+
+    public static boolean tryPassword(String source, String password) {
         // verify source
         File file = new File(source);
         if (!file.isFile()) {
             System.err.println("Given file is not a valid file");
             System.exit(0);
         }
+        String destination = new File(source).getParentFile().getPath();
 
-        String destination = file.getParentFile().getPath();
-        String password = "test";
-
-        ZipFile zipFile;
         try {
+            ZipFile zipFile = new ZipFile(source);
             zipFile = new ZipFile(source);
             zipFile.setPassword(password);
             // zipFile.setRunInThread(true);
             zipFile.extractAll(destination);
             System.out.println(String.format("Password %s seems working (archive deflated)", password));
+            return true;
         } catch (ZipException ex) {
-            System.err.println(String.format("Password %s does not work", password));
+            // System.err.println(String.format("Password %s does not work", password));
+            return false;
         }
 
     }
