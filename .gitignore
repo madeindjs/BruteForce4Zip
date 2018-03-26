@@ -1,3 +1,5 @@
 /target/src/test/assets/toto.txt
 src/test/assets/toto.txt
 target/
+src/main/resources/passwords.txt
+src/test/resources/toto.txt
