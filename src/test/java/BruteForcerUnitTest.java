@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class BruteForcerUnitTest {
 
-    public static final String ZIP_FILE = "src/test/assets/toto.txt.zip";
+    public static final String ZIP_FILE = "src/test/resources/toto.txt.zip";
 
     @Test
     public void testUnvalidPassword() throws FileNotFoundException, ZipException {
