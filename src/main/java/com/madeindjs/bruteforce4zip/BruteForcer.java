@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.processing.FilerException;
@@ -12,7 +14,7 @@ import net.lingala.zip4j.exception.ZipException;
 
 public class BruteForcer {
 
-    private ZipFile zipFile;
+    private String source;
     private String destination;
     private Passwords passwords;
 
@@ -26,24 +28,21 @@ public class BruteForcer {
         if (!file.isFile()) {
             throw new FileNotFoundException("Given file is not a valid file");
         }
-        destination = new File(source).getParentFile().getPath();
-        zipFile = new ZipFile(source);
-        passwords = new Passwords();
+        this.destination = new File(source).getParentFile().getPath();
+        this.source = source;
+        this.passwords = new Passwords();
     }
 
     public void run() {
+
+        ExecutorService executor = Executors.newFixedThreadPool(5);
 
         try {
             BufferedReader buffer = passwords.getBuffer();
             String line;
             while ((line = buffer.readLine()) != null) {
-                if (tryPassword(line)) {
-                    System.out.println(String.format("Found this password: %s", line));
-                    buffer.close();
-                    return;
-                } else {
-                    System.out.println(String.format("Try this password: %s", line));
-                }
+                Attempt attempt = new Attempt(source, line, destination);
+                executor.execute(attempt);
             }
 
             buffer.close();
@@ -51,25 +50,11 @@ public class BruteForcer {
             Logger.getLogger(BruteForcer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.err.println("Can't find local passwords");
-    }
-
-    /**
-     * Try to delate given archive with the given password
-     *
-     * @param password
-     * @return `true` if success
-     */
-    public boolean tryPassword(String password) {
-        try {
-            zipFile.setPassword(password);
-            // zipFile.setRunInThread(true);
-            zipFile.extractAll(destination);
-            return true;
-        } catch (ZipException ex) {
-            return false;
+        executor.shutdown();
+        while (!executor.isTerminated()) {
         }
 
+        System.err.println("Can't find local passwords");
     }
 
 }

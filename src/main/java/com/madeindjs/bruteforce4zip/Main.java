@@ -13,7 +13,6 @@ public class Main {
             System.exit(0);
         }
         String source = args[0];
-        String password = "test";
 
         BruteForcer forcer = new BruteForcer(source);
         forcer.run();
