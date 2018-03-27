@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.processing.FilerException;
-import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
 public class BruteForcer {
@@ -35,7 +34,7 @@ public class BruteForcer {
 
     public void run() {
 
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
         try {
             BufferedReader buffer = passwords.getBuffer();

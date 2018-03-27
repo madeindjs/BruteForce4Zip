@@ -1,9 +1,7 @@
 
 import com.madeindjs.bruteforce4zip.Attempt;
-import com.madeindjs.bruteforce4zip.BruteForcer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.junit.Assert;
 import org.junit.Test;
