@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.processing.FilerException;
+import me.tongfei.progressbar.ProgressBar;
 import net.lingala.zip4j.exception.ZipException;
 
 public class BruteForcer {
@@ -33,14 +34,15 @@ public class BruteForcer {
     }
 
     public void run() {
-
         ExecutorService executor = Executors.newFixedThreadPool(10);
+        ProgressBar progress = new ProgressBar("Test", passwords.count());
+        progress.start();
 
         try {
             BufferedReader buffer = passwords.getBuffer();
             String line;
             while ((line = buffer.readLine()) != null) {
-                Attempt attempt = new Attempt(source, line, destination);
+                Attempt attempt = new Attempt(source, line, destination, progress);
                 executor.execute(attempt);
             }
 

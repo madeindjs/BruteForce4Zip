@@ -29,6 +29,22 @@ public class Passwords {
         return new BufferedReader(new FileReader(LOCAL_URL));
     }
 
+    public long count() {
+        long count = 0;
+        BufferedReader reader;
+        try {
+            reader = getBuffer();
+            while (reader.readLine() != null) {
+                count++;
+            }
+            reader.close();
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        }
+        return count;
+
+    }
+
     private boolean cacheExists() {
         return new File(LOCAL_URL).exists();
     }
